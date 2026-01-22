@@ -1,5 +1,8 @@
 # Embedding System – Demo & Architecture
 
+![Uploading Modal Overview.png…]()
+
+
 ## I. Chạy test demo trên Docker
 
 Sau khi chạy
