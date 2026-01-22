@@ -2,6 +2,13 @@
 
 ## I. Chạy test demo trên Docker
 
+Sau khi chạy
+<img width="1096" height="998" alt="semantic-similarity-1" src="https://github.com/user-attachments/assets/b6c07a0d-c2c4-403d-97aa-6dae66880ed8" />
+
+Test API
+<img width="1130" height="719" alt="semantic-similarity-2" src="https://github.com/user-attachments/assets/130800d1-c098-44f8-ab1e-507349f5cc8e" />
+
+
 ### Các chế độ chạy
 Hệ thống hỗ trợ **gRPC** và **HTTP**. Trước khi chạy, cần đổi cấu hình tương ứng.
 
