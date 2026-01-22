@@ -1,0 +1,18 @@
+//pip install grpcio grpcio-tools
+//python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. embed.proto
+
+syntax = "proto3";
+
+package embed;
+
+service EmbedService {
+  rpc EmbedText (EmbedRequest) returns (EmbedResponse);
+}
+
+message EmbedRequest {
+  string text = 1;
+}
+
+message EmbedResponse {
+  repeated float vector = 1;
+}

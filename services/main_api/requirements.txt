@@ -1,0 +1,15 @@
+#python-dotenv
+requests
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+pydantic
+pydantic-settings
+redis
+qdrant-client
+
+## for gRPC
+grpcio
+grpcio-tools
+protobuf

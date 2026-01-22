@@ -1,0 +1,8 @@
+#torch
+pydantic
+pydantic-settings
+#pyvi
+redis
+sentence-transformers
+transformers
+#gunicorn # for multi process CMD [  "gunicorn",  "main:app",  "-k", "uvicorn.workers.UvicornWorker",  "-w", "2",  "-b", "0.0.0.0:8000"]

@@ -1,0 +1,112 @@
+version: "3.9"
+
+services:
+
+  # -----------------------
+  # NGINX - Load Balancer
+  # -----------------------
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+      - "8002:8002"      
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf      
+    depends_on:
+      - main_api
+      - embedding
+
+  # -----------------------
+  # API LAYER
+  # -----------------------
+  main_api:
+    build:
+      context: .
+      dockerfile: services/main_api/Dockerfile
+    #container_name: main_api
+    env_file: .env
+    # ports:
+    #   - "8000:8000"
+    expose:
+      - "8000"      
+    depends_on:
+      - embedding
+      - redis
+      - qdrant
+      - postgres      
+    deploy:
+      replicas: 1      
+
+  # -----------------------
+  # EMBEDDING SERVICE
+  # -----------------------
+  embedding:
+    build:
+      context: .
+      dockerfile: services/embedding/Dockerfile
+    #container_name: embedding
+    env_file: .env
+    # ports:
+    #   - "8001:8001"
+    expose:
+      - "8001"   
+    depends_on:
+      - redis
+    deploy:
+      replicas: 1
+
+  # -----------------------
+  # Inference Worker
+  # -----------------------
+  inference_worker:
+    build:
+      context: .
+      dockerfile: services/inference_worker/Dockerfile
+    #container_name: inference_worker
+    env_file: .env
+    depends_on:
+      - redis
+    deploy:
+      replicas: 1      
+
+  # -----------------------
+  # POSTGRE - DATABASE
+  # -----------------------
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_DB: semantic-documents
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  # -----------------------
+  # REDIS - CACHE
+  # -----------------------
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  # -----------------------
+  # QDRANT - VECTOR DB
+  # -----------------------
+  qdrant:
+    image: qdrant/qdrant:v1.16.3
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+# -----------------------
+# VOLUMES
+# -----------------------
+volumes:
+  qdrant_data:
+
+#docker compose up --build
+#docker compose up --build --scale api=3
+#docker run -d --name qdrant -p 6333:6333 -p 6334:6334 qdrant/qdrant
+#docker run -d --name redis -p 6379:6379 redis:7  

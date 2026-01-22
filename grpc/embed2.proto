@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package embed;
+
+service EmbedService {
+  rpc Embed (EmbedRequest) returns (EmbedResponse);
+  rpc EmbedBatch (EmbedBatchRequest) returns (EmbedBatchResponse);
+}
+
+message EmbedRequest {
+  string job_id = 1;
+  string text = 2;
+}
+
+message EmbedResponse {
+  repeated float embedding = 1;
+}
+
+message EmbedBatchRequest {
+  repeated EmbedRequest requests = 1;
+}
+
+message EmbedBatchResponse {
+  repeated EmbedResponse responses = 1;
+}
