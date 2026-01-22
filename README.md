@@ -1,6 +1,7 @@
 # Embedding System – Demo & Architecture
 
-![Uploading Modal Overview.png…]()
+Kiến trúc tổng quan
+<img width="1000" height="818" alt="Modal Overview" src="https://github.com/user-attachments/assets/36abbc54-519d-4fc8-98ce-4804cae9c9cb" />
 
 
 ## I. Chạy test demo trên Docker
