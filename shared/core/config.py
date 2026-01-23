@@ -25,6 +25,12 @@ class Settings(BaseSettings):
     REDIS_HOST: str = "redis"
     REDIS_PORT: int = 6379
 
+    MODEL_TYPE: str = "sentence_transformer"
+    MODEL_NAME: str = "VoVanPhuc/sup-SimCSE-VietNamese-phobert-base"
+    MODEL_BATCH_SIZE: int = 16 #BATCH_SIZE = GPU 4G->8-16, 8G->16-32, 16G->32-64    
+    MODEL_VECTOR_COLLECTION: str = "texts-vector"
+    MODEL_VECTOR_SIZE: int = 768
+
     #model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 

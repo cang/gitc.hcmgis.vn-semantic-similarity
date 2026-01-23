@@ -1,7 +1,7 @@
-MODEL_NAME = "VoVanPhuc/sup-SimCSE-VietNamese-phobert-base"
-BATCH_SIZE = 16 #BATCH_SIZE = GPU 4G->8-16, 8G->16-32, 16G->32-64
-TEXTS_VECTOR_COLLECTION = "texts-vector"
-TEXTS_VECTOR_SIZE = 768
+#MODEL_NAME = "VoVanPhuc/sup-SimCSE-VietNamese-phobert-base"
+#BATCH_SIZE = 16 #BATCH_SIZE = GPU 4G->8-16, 8G->16-32, 16G->32-64
+#TEXTS_VECTOR_COLLECTION = "texts-vector"
+#TEXTS_VECTOR_SIZE = 768
 EMBED_QUEUE_KEY = "embed:queue"
 EMBED_RESULT = "embed:result"
 RESULT_EXPIRE_SECONDS = 30

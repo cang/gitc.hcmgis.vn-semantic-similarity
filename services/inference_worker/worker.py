@@ -3,12 +3,15 @@ import time
 import json
 import torch
 from redis.exceptions import RedisError
-from sentence_transformers import SentenceTransformer
 from shared.db.redis_client import get_redis
 from shared.core.constants import *
-from services.inference_worker.model_service import *
+from shared.core.config import settings
+from services.inference_worker.model_registry import create_embedder
+from embedder.embedder import BaseEmbedder
 
-def start_worker(model_service: ModelService):
+MODEL_BATCH_SIZE = settings.MODEL_BATCH_SIZE
+
+def start_worker(embedder: BaseEmbedder):
     print("Worker loop started", flush=True)
     redis_client = None
     while True:
@@ -18,7 +21,7 @@ def start_worker(model_service: ModelService):
                 redis_client.ping()
                 
             jobs = []
-            for _ in range(BATCH_SIZE):
+            for _ in range(MODEL_BATCH_SIZE):
                 job = redis_client.lpop(EMBED_QUEUE_KEY)    
                 if not job:
                     break
@@ -32,13 +35,14 @@ def start_worker(model_service: ModelService):
             texts = [j["text"] for j in jobs]
 
             with torch.no_grad():
-                embeddings = model_service.encode(texts)
+                embeddings = embedder.encode(texts)
                 
             print(f"> đã xử lý {jobs}", flush=True)
             for job, vector in zip(jobs, embeddings):
                 redis_client.set(
                     f"{EMBED_RESULT}:{job['job_id']}",
-                    json.dumps(vector.tolist()),
+                    #json.dumps(vector.tolist()),
+                    json.dumps(vector),
                     ex=30
                 )
                 
@@ -52,8 +56,13 @@ def start_worker(model_service: ModelService):
             time.sleep(1)    
 
 def main():
-    model_service = create_model_service()
-    start_worker(model_service)
+      # 1️⃣ Load model (CHẠY 1 LẦN)
+    embedder = create_embedder(
+        model_type=settings.MODEL_TYPE,
+        model_name=settings.MODEL_NAME
+    )
+    embedder.load()
+    start_worker(embedder)
 
 if __name__ == "__main__":
     main()            

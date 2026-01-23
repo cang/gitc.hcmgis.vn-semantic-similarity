@@ -22,7 +22,7 @@ def get_qdrant_client():
                     timeout=1.5
                 )
 			
-                #ENSURE TEXTS_VECTOR_COLLECTION
+                #ENSURE MODEL_VECTOR_COLLECTION
                 ensure_collection(_client)
 	
     return _client
@@ -34,13 +34,13 @@ def reset_qdrant_client():
 	
 def ensure_collection(client):
     #collections = client.get_collections().collections
-    #if TEXTS_VECTOR_COLLECTION not in [c.name for c in collections]:
+    #if MODEL_VECTOR_COLLECTION not in [c.name for c in collections]:
 	try:
-		if not client.collection_exists(TEXTS_VECTOR_COLLECTION):
+		if not client.collection_exists(settings.MODEL_VECTOR_COLLECTION):
 			client.create_collection(
-				collection_name=TEXTS_VECTOR_COLLECTION,
+				collection_name=settings.MODEL_VECTOR_COLLECTION,
 				vectors_config=models.VectorParams(
-					size=TEXTS_VECTOR_SIZE,
+					size=settings.MODEL_VECTOR_SIZE,
 					distance=models.Distance.COSINE
 				)
 			)	

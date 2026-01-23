@@ -18,6 +18,7 @@ from shared.enum.run_mode import RunMode
 
 EMBED_HOST = settings.EMBED_HOST
 EMBED_PORT = settings.EMBED_PORT
+TEXTS_VECTOR_COLLECTION = settings.MODEL_VECTOR_COLLECTION
 
 breaker = CircuitBreaker(fail_threshold=3, reset_timeout=10)
 
