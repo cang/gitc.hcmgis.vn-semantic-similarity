@@ -4,6 +4,20 @@ Kiến trúc tổng quan
 <img width="1000" height="818" alt="Modal Overview" src="https://github.com/user-attachments/assets/36abbc54-519d-4fc8-98ce-4804cae9c9cb" />
 
 
+3 Ngày sau khi học về micro service 
+-----------------------------------
+Vấn đề của kiến trúc này là gì ?
+Điểm mạnh của nó là chia ra khá nhiều tầng
+NHƯNG nó vẫn bám vào duy nhất một database.
+NHƯ vậy cho dù có dùng N tầng, M máy thì nút thắc của nó cũng là cái database kia.
+VÀ để scale theo chiều ngang, chúng ta đơn giản có Load Balancing !!! 1m users ta cần 1 mày thì 10m user ta cần 10 máy, thế thôi.
+VÀ đề tăng tốc độ, scle theo ngang/dọc ta đơn giản dùng shared memmory cache database ( tạm gọi thế ).
+THẾ THÌ 
+HÃY QUAY VỀ VỚI MONO SERVICE với thiết kế đơn giàn và mềm dẽo nhất đáp ứng tất cả tiêu chí mở rộng trên kia
+===>>=====
+
+
+
 ## I. Chạy test demo trên Docker
 
 Sau khi chạy
